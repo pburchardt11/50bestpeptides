@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { peptides } from "@/data/peptides";
+import { allPeptides as peptides } from "@/data/all-peptides";
 import { blogPosts } from "@/data/blogs";
 
 export default function sitemap(): MetadataRoute.Sitemap {

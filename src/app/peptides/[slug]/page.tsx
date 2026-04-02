@@ -15,7 +15,7 @@ import {
   BookOpen,
   ShieldAlert,
 } from "lucide-react";
-import { peptides } from "@/data/peptides";
+import { allPeptides as peptides } from "@/data/all-peptides";
 
 export async function generateStaticParams() {
   return peptides.map((p) => ({ slug: p.slug }));
