@@ -115,13 +115,13 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 pt-4">
             {top3.map((peptide, i) => (
               <Link key={peptide.slug} href={`/peptides/${peptide.slug}`}>
-                <Card className="group relative h-full p-6 transition-all hover:bg-accent/50 hover:shadow-md">
+                <Card className="group relative h-full p-6 transition-all hover:bg-accent/50 hover:shadow-md overflow-visible">
                   {i === 0 && (
                     <div className="absolute -top-3 left-6">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
                         <Star className="h-3 w-3" />
                         #1 Most Popular
                       </span>
