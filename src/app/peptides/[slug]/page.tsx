@@ -16,6 +16,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { allPeptides as peptides } from "@/data/all-peptides";
+import { ShopBanner } from "@/components/shop-banner";
 
 export async function generateStaticParams() {
   return peptides.map((p) => ({ slug: p.slug }));
@@ -182,6 +183,11 @@ export default async function PeptidePage({
             {peptide.legalStatus}
           </p>
         </Card>
+
+        {/* Shop banner */}
+        <div className="mb-6">
+          <ShopBanner />
+        </div>
 
         {/* Disclaimer box */}
         <Card className="p-6 mb-10 bg-muted/50 border-border">

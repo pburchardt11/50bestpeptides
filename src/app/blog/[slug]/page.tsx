@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { blogPosts } from "@/data/blogs";
+import { ShopBanner } from "@/components/shop-banner";
 
 export async function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -93,6 +94,10 @@ export default async function BlogPostPage({
             {tag}
           </Badge>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <ShopBanner />
       </div>
 
       <div className="mt-8 rounded-lg border border-border bg-muted/50 p-4">

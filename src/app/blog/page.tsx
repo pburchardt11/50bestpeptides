@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Clock, Calendar } from "lucide-react";
 import { blogPosts } from "@/data/blogs";
+import { ShopBanner } from "@/components/shop-banner";
 
 export const metadata: Metadata = {
   title: "Peptide Blog — Research, Guides & News",
@@ -55,6 +56,10 @@ export default function BlogPage() {
             </Card>
           </Link>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <ShopBanner />
       </div>
     </div>
   );
