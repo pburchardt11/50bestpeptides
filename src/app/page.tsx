@@ -154,14 +154,14 @@ export default function HomePage() {
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     {peptide.shortDescription}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 overflow-hidden">
                     {peptide.uses.slice(0, 3).map((use) => (
                       <Badge
                         key={use}
                         variant="secondary"
-                        className="text-xs font-normal"
+                        className="text-xs font-normal truncate max-w-full"
                       >
-                        {use}
+                        {use.length > 40 ? use.slice(0, 40) + "…" : use}
                       </Badge>
                     ))}
                   </div>
