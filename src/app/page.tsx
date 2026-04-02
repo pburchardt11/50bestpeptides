@@ -313,6 +313,49 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Shop Banner */}
+      <section className="py-0">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <a
+            href="https://50best-spa.myshopify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block"
+          >
+            <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 p-0 transition-all hover:border-primary/40 hover:shadow-lg">
+              <div className="flex flex-col items-center gap-6 p-8 sm:flex-row sm:p-10">
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                  <Sparkles className="h-10 w-10 text-primary" />
+                </div>
+                <div className="text-center sm:text-left flex-1">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-2">
+                    <Star className="h-3 w-3" />
+                    Official Store
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+                    Experience Peptides on Your Skin
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xl">
+                    Shop our curated collection of peptide-infused skincare — from
+                    Copper Peptide serums and anti-aging treatments to advanced
+                    hydrogel patches. Science-backed formulas for real results.
+                  </p>
+                  <div className="mt-4 flex items-center justify-center gap-3 sm:justify-start flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground group-hover:bg-primary/90 transition-colors">
+                      Shop Peptide Skincare
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Serums • Masks • Treatments • Hair Growth
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </a>
+        </div>
+      </section>
+
       {/* Browse by Category */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
