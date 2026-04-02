@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { allPeptides } from "@/data/all-peptides";
+import { HeroSearch } from "@/components/hero-search";
 
 const categoryIcons: Record<string, typeof FlaskConical> = {
   "Tissue Repair": Heart,
@@ -62,7 +63,17 @@ export default function HomePage() {
               Detailed profiles with uses, research findings, safety data, and
               legal status — all ranked by popularity.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
+            <div className="mt-8">
+              <HeroSearch
+                peptides={allPeptides.map((p) => ({
+                  name: p.name,
+                  slug: p.slug,
+                  category: p.category,
+                }))}
+                categories={categories}
+              />
+            </div>
+            <div className="mt-6 flex items-center justify-center gap-4 flex-wrap">
               <Link
                 href="/peptides"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
