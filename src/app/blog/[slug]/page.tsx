@@ -3,9 +3,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 import { blogPosts } from "@/data/blogs";
 import { ShopBanner } from "@/components/shop-banner";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { JsonLd } from "@/components/json-ld";
 
 export async function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -29,6 +31,9 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.date,
     },
+    alternates: {
+      canonical: `https://www.50bestpeptides.com/blog/${post.slug}`,
+    },
   };
 }
 
@@ -44,13 +49,37 @@ export default async function BlogPostPage({
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <Link
-        href="/blog"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to blog
-      </Link>
+      {/* Structured Data: BlogPosting */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          author: {
+            "@type": "Organization",
+            name: "50 Best Peptides Editorial Team",
+            url: "https://www.50bestpeptides.com",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "50 Best Peptides",
+            url: "https://www.50bestpeptides.com",
+          },
+          mainEntityOfPage: `https://www.50bestpeptides.com/blog/${post.slug}`,
+          keywords: post.tags.join(", "),
+        }}
+      />
+
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: post.title },
+        ]}
+      />
 
       <Badge variant="outline" className="mb-4">
         {post.category}

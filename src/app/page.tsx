@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
+import { JsonLd } from "@/components/json-ld";
 import {
   FlaskConical,
   TrendingUp,
@@ -40,6 +41,21 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "50 Best Peptides",
+          url: "https://www.50bestpeptides.com",
+          description:
+            "The most comprehensive peptide research database. 150+ peptides ranked by popularity with detailed profiles.",
+          publisher: {
+            "@type": "Organization",
+            name: "50 Best Limited",
+            url: "https://www.50bestpeptides.com",
+          },
+        }}
+      />
       <DisclaimerBanner />
 
       {/* Hero */}

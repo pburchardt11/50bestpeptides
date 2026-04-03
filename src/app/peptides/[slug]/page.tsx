@@ -5,8 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { JsonLd } from "@/components/json-ld";
+import { ShopBanner } from "@/components/shop-banner";
 import {
-  ArrowLeft,
   FlaskConical,
   AlertTriangle,
   Syringe,
@@ -14,9 +16,11 @@ import {
   TrendingUp,
   BookOpen,
   ShieldAlert,
+  HelpCircle,
+  Link2,
+  ArrowRight,
 } from "lucide-react";
 import { allPeptides as peptides } from "@/data/all-peptides";
-import { ShopBanner } from "@/components/shop-banner";
 
 export async function generateStaticParams() {
   return peptides.map((p) => ({ slug: p.slug }));
@@ -38,7 +42,58 @@ export async function generateMetadata({
       title: `${peptide.name} — 50 Best Peptides`,
       description: peptide.shortDescription,
     },
+    alternates: {
+      canonical: `https://www.50bestpeptides.com/peptides/${peptide.slug}`,
+    },
   };
+}
+
+function getRelatedPeptides(
+  current: (typeof peptides)[0],
+  all: typeof peptides
+) {
+  // Same category, excluding self, sorted by rank
+  const sameCategory = all
+    .filter((p) => p.category === current.category && p.slug !== current.slug)
+    .slice(0, 4);
+  // If less than 4, fill with nearby ranks
+  if (sameCategory.length < 4) {
+    const nearby = all
+      .filter(
+        (p) =>
+          p.slug !== current.slug &&
+          !sameCategory.some((s) => s.slug === p.slug)
+      )
+      .sort((a, b) => Math.abs(a.rank - current.rank) - Math.abs(b.rank - current.rank))
+      .slice(0, 4 - sameCategory.length);
+    return [...sameCategory, ...nearby];
+  }
+  return sameCategory;
+}
+
+function generateFAQs(peptide: (typeof peptides)[0]) {
+  return [
+    {
+      question: `What is ${peptide.name}?`,
+      answer: peptide.shortDescription,
+    },
+    {
+      question: `What are the main uses of ${peptide.name}?`,
+      answer: `The primary research applications of ${peptide.name} include: ${peptide.uses.join("; ")}.`,
+    },
+    {
+      question: `What are the risks and side effects of ${peptide.name}?`,
+      answer: `Documented risks and side effects include: ${peptide.risks.join("; ")}. Always consult a healthcare professional before considering any peptide.`,
+    },
+    {
+      question: `Is ${peptide.name} legal?`,
+      answer: peptide.legalStatus,
+    },
+    {
+      question: `How is ${peptide.name} administered?`,
+      answer: peptide.administration,
+    },
+  ];
 }
 
 export default async function PeptidePage({
@@ -53,19 +108,59 @@ export default async function PeptidePage({
 
   const prevPeptide = peptides.find((p) => p.rank === peptide.rank - 1);
   const nextPeptide = peptides.find((p) => p.rank === peptide.rank + 1);
+  const relatedPeptides = getRelatedPeptides(peptide, peptides);
+  const faqs = generateFAQs(peptide);
 
   return (
     <>
       <DisclaimerBanner />
+
+      {/* Structured Data: Article */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: `${peptide.name} — Uses, Research, Risks & More`,
+          description: peptide.shortDescription,
+          author: {
+            "@type": "Organization",
+            name: "50 Best Limited",
+            url: "https://www.50bestpeptides.com",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "50 Best Peptides",
+            url: "https://www.50bestpeptides.com",
+          },
+          mainEntityOfPage: `https://www.50bestpeptides.com/peptides/${peptide.slug}`,
+        }}
+      />
+
+      {/* Structured Data: FAQPage */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          })),
+        }}
+      />
+
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        {/* Back link */}
-        <Link
-          href="/peptides"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to all peptides
-        </Link>
+        {/* Breadcrumbs */}
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Peptides", href: "/peptides" },
+            { label: peptide.name },
+          ]}
+        />
 
         {/* Header */}
         <div className="flex items-start gap-4 mb-8">
@@ -174,7 +269,7 @@ export default async function PeptidePage({
         </Card>
 
         {/* Legal */}
-        <Card className="p-6 mb-10">
+        <Card className="p-6 mb-8">
           <h2 className="flex items-center gap-2 text-xl font-semibold mb-4">
             <Scale className="h-5 w-5 text-primary" />
             Legal Status
@@ -183,6 +278,46 @@ export default async function PeptidePage({
             {peptide.legalStatus}
           </p>
         </Card>
+
+        {/* FAQs */}
+        <section className="mb-8">
+          <h2 className="flex items-center gap-2 text-xl font-semibold mb-4">
+            <HelpCircle className="h-5 w-5 text-primary" />
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <Card key={i} className="p-5">
+                <h3 className="text-sm font-semibold mb-2">{faq.question}</h3>
+                <p className="text-sm text-muted-foreground">{faq.answer}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Related Peptides */}
+        <section className="mb-8">
+          <h2 className="flex items-center gap-2 text-xl font-semibold mb-4">
+            <Link2 className="h-5 w-5 text-primary" />
+            Related Peptides
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {relatedPeptides.map((rp) => (
+              <Link key={rp.slug} href={`/peptides/${rp.slug}`}>
+                <Card className="flex items-center gap-3 p-4 transition-colors hover:bg-accent/50">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted font-bold text-xs">
+                    #{rp.rank}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-sm font-medium">{rp.name}</h3>
+                    <p className="text-xs text-muted-foreground">{rp.category}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Shop banner */}
         <div className="mb-6">
