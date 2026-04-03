@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, FlaskConical } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { GoogleTranslate } from "@/components/google-translate";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -37,7 +36,6 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <GoogleTranslate />
         </nav>
 
         <Sheet open={open} onOpenChange={setOpen}>
