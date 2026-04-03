@@ -1,4 +1,4 @@
-import { blogPosts } from "@/data/blogs";
+import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 
 export async function GET() {
   const baseUrl = "https://www.50bestpeptides.com";

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Clock, Calendar } from "lucide-react";
-import { blogPosts } from "@/data/blogs";
+import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 import { ShopBanner } from "@/components/shop-banner";
 
 export const metadata: Metadata = {

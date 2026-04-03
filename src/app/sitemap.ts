@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { allPeptides as peptides } from "@/data/all-peptides";
-import { blogPosts } from "@/data/blogs";
+import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 
 let comparisons: { slug: string }[] = [];
 try {

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User } from "lucide-react";
-import { blogPosts } from "@/data/blogs";
+import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 import { ShopBanner } from "@/components/shop-banner";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
