@@ -8,6 +8,8 @@ import { blogPosts } from "@/data/blogs";
 import { ShopBanner } from "@/components/shop-banner";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
+import { ShareButtons } from "@/components/share-buttons";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -108,6 +110,10 @@ export default async function BlogPostPage({
         </span>
       </div>
 
+      <div className="my-6">
+        <ShareButtons title={post.title} path={`/blog/${post.slug}`} />
+      </div>
+
       <Separator className="my-8" />
 
       <div
@@ -123,6 +129,10 @@ export default async function BlogPostPage({
             {tag}
           </Badge>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <NewsletterSignup />
       </div>
 
       <div className="mt-8">

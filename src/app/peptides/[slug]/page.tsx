@@ -21,6 +21,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { allPeptides as peptides } from "@/data/all-peptides";
+import { ShareButtons } from "@/components/share-buttons";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function generateStaticParams() {
   return peptides.map((p) => ({ slug: p.slug }));
@@ -185,6 +187,13 @@ export default async function PeptidePage({
           </div>
         </div>
 
+        <div className="flex items-center justify-between mb-8">
+          <ShareButtons
+            title={`${peptide.name} — 50 Best Peptides`}
+            path={`/peptides/${peptide.slug}`}
+          />
+        </div>
+
         <Separator className="mb-8" />
 
         {/* Full description */}
@@ -318,6 +327,11 @@ export default async function PeptidePage({
             ))}
           </div>
         </section>
+
+        {/* Newsletter */}
+        <div className="mb-6">
+          <NewsletterSignup />
+        </div>
 
         {/* Shop banner */}
         <div className="mb-6">

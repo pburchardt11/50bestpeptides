@@ -2,6 +2,13 @@ import type { MetadataRoute } from "next";
 import { allPeptides as peptides } from "@/data/all-peptides";
 import { blogPosts } from "@/data/blogs";
 
+let comparisons: { slug: string }[] = [];
+try {
+  comparisons = require("@/data/comparisons").comparisons;
+} catch {
+  // Not yet available
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.50bestpeptides.com";
 
@@ -30,5 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...peptidePages, ...blogPages];
+  const comparePages: MetadataRoute.Sitemap = comparisons.map((c) => ({
+    url: `${baseUrl}/compare/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...peptidePages, ...blogPages, ...comparePages];
 }

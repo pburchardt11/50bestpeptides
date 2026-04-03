@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/peptides", label: "Peptides" },
+  { href: "/compare", label: "Compare" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
