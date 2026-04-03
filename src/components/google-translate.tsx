@@ -1,102 +1,76 @@
 "use client";
 
-import Script from "next/script";
-import { useEffect, useState } from "react";
-import { Globe } from "lucide-react";
+import { useState } from "react";
+import { Globe, X } from "lucide-react";
 
-declare global {
-  interface Window {
-    googleTranslateElementInit?: () => void;
-    google?: {
-      translate: {
-        TranslateElement: new (
-          options: {
-            pageLanguage: string;
-            autoDisplay: boolean;
-            layout: unknown;
-          },
-          element: string
-        ) => void;
-      };
-    };
-  }
-}
+const languages = [
+  { code: "zh-CN", label: "中文" },
+  { code: "es", label: "Español" },
+  { code: "hi", label: "हिन्दी" },
+  { code: "ar", label: "العربية" },
+  { code: "fr", label: "Français" },
+  { code: "de", label: "Deutsch" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
+  { code: "pt", label: "Português" },
+  { code: "ru", label: "Русский" },
+  { code: "it", label: "Italiano" },
+  { code: "nl", label: "Nederlands" },
+  { code: "tr", label: "Türkçe" },
+  { code: "pl", label: "Polski" },
+  { code: "th", label: "ไทย" },
+  { code: "vi", label: "Tiếng Việt" },
+  { code: "id", label: "Bahasa Indonesia" },
+  { code: "sv", label: "Svenska" },
+];
 
 export function GoogleTranslate() {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    window.googleTranslateElementInit = () => {
-      if (window.google?.translate?.TranslateElement) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            autoDisplay: false,
-            layout:
-              (
-                window.google.translate.TranslateElement as unknown as Record<
-                  string,
-                  Record<string, unknown>
-                >
-              ).InlineLayout?.SIMPLE,
-          },
-          "google_translate_element"
-        );
-      }
-    };
-  }, []);
+  function translate(langCode: string) {
+    const url = window.location.href;
+    window.open(
+      `https://translate.google.com/translate?sl=en&tl=${langCode}&u=${encodeURIComponent(url)}`,
+      "_blank"
+    );
+    setOpen(false);
+  }
 
   return (
-    <>
-      {/* Floating button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-        {open && (
-          <div className="rounded-xl border border-border bg-card p-3 shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-200">
-            <div id="google_translate_element" />
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+      {open && (
+        <div className="mb-2 w-48 rounded-xl border border-border bg-card shadow-lg overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/50">
+            <span className="text-xs font-semibold text-muted-foreground">
+              Translate
+            </span>
+            <button
+              onClick={() => setOpen(false)}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
           </div>
-        )}
-        <button
-          onClick={() => setOpen(!open)}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors"
-          aria-label="Translate page"
-        >
-          <Globe className="h-5 w-5" />
-        </button>
-      </div>
-
-      <Script
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-        strategy="afterInteractive"
-      />
-      <style jsx global>{`
-        .goog-te-gadget {
-          font-size: 0 !important;
-        }
-        .goog-te-gadget .goog-te-combo {
-          font-size: 13px !important;
-          padding: 6px 8px;
-          border: 1px solid hsl(var(--border));
-          border-radius: 8px;
-          background: transparent;
-          color: hsl(var(--foreground));
-          cursor: pointer;
-          outline: none;
-          min-width: 160px;
-        }
-        .goog-te-gadget .goog-te-combo:focus {
-          border-color: hsl(var(--ring));
-        }
-        .goog-te-banner-frame {
-          display: none !important;
-        }
-        body {
-          top: 0 !important;
-        }
-        .VIpgJd-ZVi9od-ORHb-OEVmcd,
-        .VIpgJd-ZVi9od-l4eHX-hSRGPd {
-          display: none !important;
-        }
-      `}</style>
-    </>
+          <div className="max-h-64 overflow-y-auto py-1">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => translate(lang.code)}
+                className="flex w-full items-center px-3 py-2 text-sm text-left hover:bg-accent transition-colors"
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors"
+        aria-label="Translate page"
+      >
+        <Globe className="h-5 w-5" />
+      </button>
+    </div>
   );
 }
