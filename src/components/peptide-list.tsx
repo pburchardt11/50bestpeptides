@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -14,7 +15,13 @@ export function PeptideList({
   peptides: Peptide[];
   categories: string[];
 }) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  const [selected, setSelected] = useState<string | null>(categoryParam);
+
+  useEffect(() => {
+    setSelected(categoryParam);
+  }, [categoryParam]);
 
   const filtered = selected
     ? peptides.filter((p) => p.category === selected)

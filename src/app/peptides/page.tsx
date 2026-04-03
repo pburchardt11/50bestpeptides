@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
 import { PeptideList } from "@/components/peptide-list";
@@ -26,7 +27,9 @@ export default function PeptidesPage() {
           </p>
         </div>
 
-        <PeptideList peptides={peptides} categories={categories} />
+        <Suspense fallback={null}>
+          <PeptideList peptides={peptides} categories={categories} />
+        </Suspense>
       </div>
     </>
   );
