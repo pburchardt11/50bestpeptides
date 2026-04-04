@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
 import { ShareButtons } from "@/components/share-buttons";
 import { ShopBanner } from "@/components/shop-banner";
+import { BuyButton } from "@/components/buy-button";
 import { ArrowLeftRight, ArrowRight } from "lucide-react";
 import { comparisons } from "@/data/comparisons";
 
@@ -174,6 +175,10 @@ export default async function ComparisonPage({
             {tag}
           </Badge>
         ))}
+      </div>
+
+      <div className="mb-8">
+        <BuyButton />
       </div>
 
       <ShopBanner />

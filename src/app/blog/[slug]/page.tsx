@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User } from "lucide-react";
 import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 import { ShopBanner } from "@/components/shop-banner";
+import { BuyButton } from "@/components/buy-button";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/json-ld";
 import { ShareButtons } from "@/components/share-buttons";
@@ -129,6 +130,10 @@ export default async function BlogPostPage({
             {tag}
           </Badge>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <BuyButton />
       </div>
 
       <div className="mt-8">
