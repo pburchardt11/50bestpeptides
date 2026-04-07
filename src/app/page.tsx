@@ -296,22 +296,41 @@ export default function HomePage() {
           </div>
 
           {/* Mobile cards */}
-          <div className="md:hidden grid gap-3">
+          <div className="md:hidden grid gap-4">
             {top50.map((peptide) => (
               <Link key={peptide.slug} href={`/peptides/${peptide.slug}`}>
-                <Card className="flex items-center gap-3 p-3 transition-colors hover:bg-accent/50">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted font-bold text-xs">
-                    #{peptide.rank}
+                <Card className="flex flex-col p-4 transition-colors hover:bg-accent/50">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold">
+                      #{peptide.rank}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base font-semibold leading-tight">
+                        {peptide.name}
+                      </h3>
+                      <Badge
+                        variant="outline"
+                        className="mt-1.5 text-[10px]"
+                      >
+                        {peptide.category}
+                      </Badge>
+                    </div>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground mt-1" />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-medium truncate">
-                      {peptide.name}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      {peptide.category}
-                    </p>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                    {peptide.shortDescription}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {peptide.uses.slice(0, 2).map((use) => (
+                      <Badge
+                        key={use}
+                        variant="secondary"
+                        className="text-[10px] font-normal truncate max-w-full"
+                      >
+                        {use.length > 35 ? use.slice(0, 35) + "…" : use}
+                      </Badge>
+                    ))}
                   </div>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
                 </Card>
               </Link>
             ))}
