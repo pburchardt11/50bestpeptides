@@ -79,6 +79,34 @@ export function Footer() {
 
         <Separator className="my-8" />
 
+        {/* 50 Best Network */}
+        <div className="mb-8">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-center mb-3">
+            50 Best Network
+          </h3>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+            {[
+              { name: "50 Best Bar", url: "https://www.50bestbar.com" },
+              { name: "50 Best Hotels", url: "https://www.50besthotels.com" },
+              { name: "50 Best Spa", url: "https://www.50bestspa.com" },
+              { name: "50 Best Museums", url: "https://www.50bestmuseums.com" },
+              { name: "50 Best Games", url: "https://www.50bestgames.com" },
+            ].map((site) => (
+              <a
+                key={site.url}
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {site.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <Separator className="mb-8" />
+
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} 50 Best Limited. All rights reserved.
