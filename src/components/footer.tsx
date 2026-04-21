@@ -91,6 +91,7 @@ export function Footer() {
               { name: "50 Best Spa", url: "https://www.50bestspa.com" },
               { name: "50 Best Museums", url: "https://www.50bestmuseums.com" },
               { name: "50 Best Games", url: "https://www.50bestgames.com" },
+              { name: "50 Best Bakeries", url: "https://www.50bestbakeries.com" },
             ].map((site) => (
               <a
                 key={site.url}
