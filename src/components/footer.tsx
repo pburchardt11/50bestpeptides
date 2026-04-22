@@ -92,6 +92,9 @@ export function Footer() {
               { name: "50 Best Museums", url: "https://www.50bestmuseums.com" },
               { name: "50 Best Games", url: "https://www.50bestgames.com" },
               { name: "50 Best Bakeries", url: "https://www.50bestbakeries.com" },
+              { name: "50 Best Neighborhoods", url: "https://www.50bestneighborhoods.com" },
+              { name: "50 Best Charms", url: "https://www.50bestcharms.com" },
+              { name: "50 Holy Sites", url: "https://www.50holysites.com" },
             ].map((site) => (
               <a
                 key={site.url}
