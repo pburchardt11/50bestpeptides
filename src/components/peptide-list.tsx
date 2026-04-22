@@ -141,24 +141,24 @@ export function PeptideList({
       <div className="md:hidden grid gap-3">
         {filtered.map((peptide) => (
           <Link key={peptide.slug} href={`/peptides/${peptide.slug}`}>
-            <Card className="flex items-center gap-3 p-3 transition-colors hover:bg-accent/50">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted font-bold text-xs">
-                #{peptide.rank}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-sm font-medium truncate">
+            <Card className="p-4 transition-colors hover:bg-accent/50">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xs">
+                  #{peptide.rank}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-sm font-semibold leading-tight">
                     {peptide.name}
                   </h2>
-                  <Badge variant="outline" className="text-[10px] shrink-0">
+                  <Badge variant="outline" className="text-[10px] mt-1">
                     {peptide.category}
                   </Badge>
                 </div>
-                <p className="text-xs text-muted-foreground truncate">
-                  {peptide.shortDescription}
-                </p>
+                <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground mt-1" />
               </div>
-              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                {peptide.shortDescription}
+              </p>
             </Card>
           </Link>
         ))}
