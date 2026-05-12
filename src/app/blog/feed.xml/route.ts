@@ -1,5 +1,8 @@
 import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 
+// Required for output: 'export'
+export const dynamic = "force-static";
+
 export async function GET() {
   const baseUrl = "https://www.50bestpeptides.com";
   const sorted = [...blogPosts].sort(
