@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { allPeptides as peptides } from "@/data/all-peptides";
 import { allBlogPosts as blogPosts } from "@/data/all-blogs";
 
+// Required for output: 'export'
+export const dynamic = "force-static";
+
 let comparisons: { slug: string }[] = [];
 try {
   comparisons = require("@/data/comparisons").comparisons;
